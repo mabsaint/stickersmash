@@ -2,16 +2,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
 export default function App() {
@@ -24,7 +24,12 @@ export default function App() {
   });
   
   // Validation state
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+  }>({});
   
   // Loading state for API call
   const [isLoading, setIsLoading] = useState(false);
@@ -33,24 +38,38 @@ export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Handle input changes
-  const handleChange = (field, value) => {
+  interface FormData {
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+  }
+
+  interface FormErrors {
+    name?: string;
+    email?: string;
+    phone?: string;
+    message?: string;
+  }
+
+  const handleChange = (field: keyof FormData, value: string) => {
     setFormData({
       ...formData,
       [field]: value
     });
-    
+
     // Clear error when user types
     if (errors[field]) {
       setErrors({
         ...errors,
-        [field]: null
+        [field]: undefined
       });
     }
   };
 
   // Validate form data
   const validateForm = () => {
-    let tempErrors = {};
+    let tempErrors: FormErrors = {};
     let isValid = true;
     
     // Name validation
