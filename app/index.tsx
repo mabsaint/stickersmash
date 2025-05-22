@@ -7,7 +7,8 @@ export default function Index() {
       style={styles.container}
     >
       <Text style={styles.text}>Home Screen</Text>
-     <Link href="/about" style={styles.button}>Go to about screen.</Link>
+      <Link href="/about" style={styles.button}>Go to about screen.</Link>
+      <Link href="/claude" style={styles.button}>Go to Claude screen.</Link>
     </View>
   );
 }
